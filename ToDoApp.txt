@@ -1,0 +1,75 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class ToDoApp {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        ArrayList<String> tasks = new ArrayList<>();
+        boolean running = true;
+        System.out.println("Simple To-Do App");
+        while (running) {
+            System.out.println("\nWhat would you like to do?");
+            System.out.println("1. Add Task");
+            System.out.println("2. View Tasks");
+            System.out.println("3. Remove Task");
+            System.out.println("4. Exit");
+            System.out.print("Enter your choice (1-4):");
+            int choice;
+            try {
+                choice = Integer.parseInt(scanner.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("Please enter a valid number!");
+                continue;
+            }
+            switch (choice) {
+                
+                case 1:
+                    System.out.print("Enter your task:");
+                    String task = scanner.nextLine();
+                    tasks.add(task);
+                    System.out.println("Task added!");
+                    break;
+
+                case 2:
+                    System.out.println("\nYour To-Do List:");
+                    if (tasks.isEmpty()) {
+                        System.out.println("You have no tasks yet!");
+                    } else {
+                        for (int i = 0; i < tasks.size(); i++) {
+                            System.out.println((i + 1) + ". " + tasks.get(i));
+                        }
+                    }
+                    break;
+
+                case 3:
+                    if (tasks.isEmpty()) {
+                        System.out.println("No tasks to remove.");
+                        break;
+                    }
+                    System.out.print("Enter the task number to remove: ");
+                    try {
+                        int removeIndex = Integer.parseInt(scanner.nextLine());
+                        if (removeIndex >= 1 && removeIndex <= tasks.size()) {
+                            String removed = tasks.remove(removeIndex - 1);
+                            System.out.println("Removed: \"" + removed + "\"");
+                        } else {
+                            System.out.println("Invalid task number");
+                        }
+                    } catch (NumberFormatException e) {
+                        System.out.println("Please enter a valid number");
+                    }
+                    break;
+
+                case 4:
+                    running = false;
+                    System.out.println("Exiting To-Do App!");
+                    break;
+
+                default:
+                    System.out.println("Please choose a number between 1 and 4");
+            }
+        }
+
+        scanner.close();
+    }
+}
